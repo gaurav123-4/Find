@@ -4,7 +4,7 @@
 
 **Date:** 2026-05-14
 
-**Discussion:** #37
+**Discussion:** [#37](https://github.com/Abhash-Chakraborty/Find/discussions/37)
 
 ## 1. Goal
 
@@ -170,6 +170,6 @@ In short: prove the mobile experience with the web stack first, then earn the ri
 
 ## 9. Related
 
-- Discussion: issue #37
+- [Discussion #37](https://github.com/Abhash-Chakraborty/Find/discussions/37)
 - Desktop framework ADR: [`desktop-tauri-vs-electron-adr.md`](./desktop-tauri-vs-electron-adr.md)
 - Current architecture: [`../README.md`](../README.md)

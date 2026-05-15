@@ -197,18 +197,18 @@ Use Electron over Tauri when **any** of these conditions are met:
 
 ### Soft Triggers (evaluate and decide)
 
-4. **Static export limitation blocks a critical Next.js feature**
+1. **Static export limitation blocks a critical Next.js feature**
    - e.g., `next/image` with external domains, dynamic routes, etc.
-5. **Auto-update production issues exceed threshold**
+2. **Auto-update production issues exceed threshold**
    - If Tauri updater causes >5% of users to have update failures in beta
-6. **Sidecar process management complexity exceeds estimate**
+3. **Sidecar process management complexity exceeds estimate**
    - If Tauri-sidecar IPC causes significant engineering overhead
 
 ### Tauri Stays
 
-7. **App size matters** — if size impact on user adoption is significant
-8. **Security is prioritized** — if users store sensitive images locally
-9. **Performance under ML load matters** — saving 100-200 MB framework overhead helps
+1. **App size matters** — if size impact on user adoption is significant
+2. **Security is prioritized** — if users store sensitive images locally
+3. **Performance under ML load matters** — saving 100-200 MB framework overhead helps
 
 ---
 
@@ -278,7 +278,7 @@ Desktop App (Electron)
 
 - Use `electron-builder` for packaging (mature, well-documented)
 - Use `electron-updater` for auto-update (GitHub Releases source recommended)
-- Next.js build: standard `next build` output in `out/` directory
+- Next.js build: package the standard `next build` output from `.next/` (or `.next/standalone` when using `output: "standalone"`)
 - FastAPI sidecar: spawn as child process, wait for health check before exposing to renderer
 - IPC: use context bridge pattern (Electron 12+ default secure pattern)
 - Security: enable `contextIsolation`, `sandbox`, `nodeIntegration: false`
@@ -287,6 +287,6 @@ Desktop App (Electron)
 
 ## 9. Related
 
-- Discussion: issue #37
+- [Discussion #37](https://github.com/Abhash-Chakraborty/Find/discussions/37)
 - Docker compose (existing backend architecture): `docker-compose.yml`
 - Light contributor mode for UI-only work: `docker-compose.light.yml`
