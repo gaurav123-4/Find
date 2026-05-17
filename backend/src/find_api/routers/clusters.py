@@ -53,7 +53,11 @@ def get_clusters(db: Session = Depends(get_db)):
 
         result.append(cluster_info)
 
-    return {"clusters": result, "total": len(result)}
+    return {
+        "clusters": result,
+        "total": len(result),
+        "min_cluster_size": settings.MIN_CLUSTER_SIZE
+    }
 
 
 @router.get("/cluster/{cluster_id}")

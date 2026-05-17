@@ -90,9 +90,7 @@ export default function ClustersPage() {
     }
 
     if (clusterJobQuery.data.status === "finished") {
-      const resultData = clusterJobQuery.data.result as { message?: string } | undefined;
-      const message = resultData?.message || "Clustering finished. The page has been refreshed.";
-      toast.success(message);
+      toast.success("Clustering finished. The page has been refreshed.");
       queryClient.invalidateQueries({ queryKey: ["clusters"] });
       setClusterJobId(null);
     }
@@ -135,8 +133,9 @@ export default function ClustersPage() {
     activeJobStatus === "queued" || activeJobStatus === "started";
   const isClusterActionBusy =
     clusterMutation.isPending || clusterJobQuery.isFetching || isJobActive;
+  const minClusterSize = data?.min_cluster_size ?? 2;
   const isClusterButtonDisabled =
-    isClusterActionBusy || (indexedQuery.isSuccess && (indexedQuery.data?.total ?? 0) < 2);
+    isClusterActionBusy || (indexedQuery.isSuccess && (indexedQuery.data?.total ?? 0) < minClusterSize);
   const filteredMembers =
     selectedClusterQuery.data?.members.filter((member) =>
       member.filename.toLowerCase().includes(filterText.toLowerCase()),
@@ -175,8 +174,8 @@ export default function ClustersPage() {
               disabled={isClusterButtonDisabled}
               className="white-pill px-5 py-2.5 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-50"
               title={
-                indexedQuery.isSuccess && (indexedQuery.data?.total ?? 0) < 2
-                  ? `Need at least 2 indexed images (found ${indexedQuery.data?.total})`
+                indexedQuery.isSuccess && (indexedQuery.data?.total ?? 0) < minClusterSize
+                  ? `Need at least ${minClusterSize} indexed images (found ${indexedQuery.data?.total})`
                   : undefined
               }
             >
@@ -233,8 +232,8 @@ export default function ClustersPage() {
               disabled={isClusterButtonDisabled}
               className="white-pill px-5 py-2.5 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-50"
               title={
-                indexedQuery.isSuccess && (indexedQuery.data?.total ?? 0) < 2
-                  ? `Need at least 2 indexed images (found ${indexedQuery.data?.total})`
+                indexedQuery.isSuccess && (indexedQuery.data?.total ?? 0) < minClusterSize
+                  ? `Need at least ${minClusterSize} indexed images (found ${indexedQuery.data?.total})`
                   : undefined
               }
             >

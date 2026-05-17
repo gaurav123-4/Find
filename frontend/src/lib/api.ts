@@ -103,6 +103,7 @@ export interface ClusterInfo {
 export interface ClustersResponse {
   clusters: ClusterInfo[];
   total: number;
+  min_cluster_size?: number;
 }
 
 export interface ClusterDetail {
