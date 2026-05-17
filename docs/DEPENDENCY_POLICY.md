@@ -10,7 +10,7 @@ npm packages move *fast*. Someone publishes a new version every 5 minutes, and n
 
 - **Lockfile is law:** `pnpm-lock.yaml` is committed and exact. No floating versions, no "latest", nothing vague. This way we all run the same code in CI and locally.
 - **7-day embargo on routine updates:** For minor/patch bumps of non-critical packages, we wait a week after publish. This lets the community find and flag sketchy code before we pull it in. Yes, 7 days feels conservative — it's supposed to. (Real story: a popular npm package was compromised in 2024, and it was caught within 48 hours because people noticed the new version doing weird stuff.)
-- **Automated CI rejection:** `pnpm audit --audit-level=high` runs on every PR. If you sneak in a high/critical vuln, CI blocks you. No exceptions.
+- **Automated CI reporting:** `pnpm audit --audit-level=high` runs on every PR. We currently run this in report-only mode to prevent blocking unrelated PRs, but any new high/critical vulns must be resolved.
 
 **The exception:**
 If a high or critical CVE drops for something we actually use (e.g., `react`, `next`, `axios`), the embargo is *waived*. We patch immediately, get CI to pass, and merge it. There's no point in following the waiting period if the package is already known-dangerous.

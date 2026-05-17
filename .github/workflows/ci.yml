@@ -76,7 +76,7 @@ jobs:
       if: steps.changes.outputs.backend == 'true'
     
     # Lock dependencies deterministically (uv.lock is our source of truth)
-    - run: uv sync --group dev
+    - run: uv sync --group dev --locked
       if: steps.changes.outputs.backend == 'true'
     
     # Scan locked dependencies against known vulns (Python Packaging Advisory DB)
