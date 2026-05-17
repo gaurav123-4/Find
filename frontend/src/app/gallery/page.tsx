@@ -102,7 +102,7 @@ function GalleryPageContent() {
 
   useEffect(() => {
     setPage(1);
-  }, [filter]);
+  }, [filter,likedOnly]);
 
   const updateGalleryParams = useCallback(
     (nextState: { filter?: GalleryFilter; likedOnly?: boolean }) => {
