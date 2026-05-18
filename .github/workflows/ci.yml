@@ -27,7 +27,7 @@ jobs:
     - uses: pnpm/action-setup@v3
       if: steps.changes.outputs.frontend == 'true'
       with:
-        version: 8
+        version: 10.16.0
     
     - uses: actions/setup-node@v4
       if: steps.changes.outputs.frontend == 'true'
@@ -39,7 +39,7 @@ jobs:
     - run: pnpm install
       if: steps.changes.outputs.frontend == 'true'
     
-    # Catch supply-chain attacks: reject any high/critical vulns before they land on main
+    # Report high/critical vulnerabilities for maintainer review.
     - run: pnpm audit --audit-level=high || true
       if: steps.changes.outputs.frontend == 'true'
     
@@ -79,8 +79,8 @@ jobs:
     - run: uv sync --group dev --locked
       if: steps.changes.outputs.backend == 'true'
     
-    # Scan locked dependencies against known vulns (Python Packaging Advisory DB)
-    # --desc gives us CVE details when things break
+    # Report known vulnerabilities from the locked backend dependency set.
+    # --desc adds advisory details for maintainer review.
     - run: uv run pip-audit --desc || true
       if: steps.changes.outputs.backend == 'true'
     
