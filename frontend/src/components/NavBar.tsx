@@ -22,16 +22,25 @@ export default function NavBar() {
 
   // Theme state
   const [theme, setTheme] = useState<Theme>("light");
-
-  useEffect(() => {
+useEffect(() => {
   setMounted(true);
 
   let initialTheme: Theme = "light";
 
   try {
     const savedTheme = localStorage.getItem("find-theme") as Theme | null;
-    initialTheme = savedTheme === "dark" ? "dark" : "light";
+
+    if (savedTheme === "light" || savedTheme === "dark") {
+      // Use the user's previously saved preference
+      initialTheme = savedTheme;
+    } else {
+      // No saved preference -> follow the operating system preference
+      initialTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+    }
   } catch {
+    // Fallback if localStorage is unavailable
     initialTheme = "light";
   }
 
